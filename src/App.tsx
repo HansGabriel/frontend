@@ -1,5 +1,19 @@
+import Navbar from "./components/dashboard/navbar";
+import Views from "./components/dashboard/views";
+import ConversationList from "./components/dashboard/conversation-list";
+import ConversationContent from "./components/dashboard/conversation-content";
+import ConversationDetails from "./components/dashboard/conversation-details";
+
 const App = () => {
-  return <h1 className="text-3xl font-bold underline">Hello world!</h1>;
+  return (
+    <div className="h-screen flex">
+      <Navbar />
+      <Views />
+      <ConversationList />
+      <ConversationContent />
+      <ConversationDetails />
+    </div>
+  );
 };
 
 export default App;
