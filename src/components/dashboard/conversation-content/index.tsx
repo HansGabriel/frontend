@@ -14,6 +14,19 @@ import {
   WandSparkles,
   CircleCheck,
 } from "lucide-react";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "../../ui/tooltip";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "../../ui/dropdown-menu";
+import { FileText, Send, Trash2, EyeOff } from "lucide-react";
 
 type Message = {
   id: string;
@@ -655,64 +668,97 @@ const ConversationContent = ({
           </h1>
           <p className="text-sm text-gray-600">{currentConversation.type}</p>
         </div>
-        <div className="flex items-center gap-3">
-          <button
-            onClick={() =>
-              setSelectedHeaderButton(
-                selectedHeaderButton === "languages" ? null : "languages"
-              )
-            }
-            className={`p-2 rounded-md border shadow-sm transition-all ${
-              selectedHeaderButton === "languages"
-                ? "bg-black text-white border-black"
-                : "bg-white border-gray-300 text-gray-600 hover:bg-gray-50 hover:border-gray-400"
-            }`}
-          >
-            <Languages size={18} />
-          </button>
-          <button
-            onClick={() =>
-              setSelectedHeaderButton(
-                selectedHeaderButton === "panel" ? null : "panel"
-              )
-            }
-            className={`p-2 rounded-md border shadow-sm transition-all ${
-              selectedHeaderButton === "panel"
-                ? "bg-black text-white border-black"
-                : "bg-white border-gray-300 text-gray-600 hover:bg-gray-50 hover:border-gray-400"
-            }`}
-          >
-            <PanelBottomClose size={18} />
-          </button>
-          <button
-            onClick={() =>
-              setSelectedHeaderButton(
-                selectedHeaderButton === "alarm" ? null : "alarm"
-              )
-            }
-            className={`p-2 rounded-md border shadow-sm transition-all ${
-              selectedHeaderButton === "alarm"
-                ? "bg-black text-white border-black"
-                : "bg-white border-gray-300 text-gray-600 hover:bg-gray-50 hover:border-gray-400"
-            }`}
-          >
-            <AlarmClock size={18} />
-          </button>
-          <button
-            onClick={() =>
-              setSelectedHeaderButton(
-                selectedHeaderButton === "menu" ? null : "menu"
-              )
-            }
-            className={`p-2 rounded-md border shadow-sm transition-all ${
-              selectedHeaderButton === "menu"
-                ? "bg-black text-white border-black"
-                : "bg-white border-gray-300 text-gray-600 hover:bg-gray-50 hover:border-gray-400"
-            }`}
-          >
-            <EllipsisVertical size={18} />
-          </button>
-        </div>
+        <TooltipProvider>
+          <div className="flex items-center gap-3">
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <button
+                  onClick={() =>
+                    setSelectedHeaderButton(
+                      selectedHeaderButton === "languages" ? null : "languages"
+                    )
+                  }
+                  className={`p-2 rounded-md border shadow-sm transition-all ${
+                    selectedHeaderButton === "languages"
+                      ? "bg-black text-white border-black"
+                      : "bg-white border-gray-300 text-gray-600 hover:bg-gray-50 hover:border-gray-400"
+                  }`}
+                >
+                  <Languages size={18} />
+                </button>
+              </TooltipTrigger>
+              <TooltipContent>
+                <p>Translate conversation</p>
+              </TooltipContent>
+            </Tooltip>
+            <button
+              onClick={() =>
+                setSelectedHeaderButton(
+                  selectedHeaderButton === "panel" ? null : "panel"
+                )
+              }
+              className="p-2 rounded-md border shadow-sm transition-all bg-black text-white border-black"
+            >
+              <PanelBottomClose size={18} />
+            </button>
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <button
+                  onClick={() =>
+                    setSelectedHeaderButton(
+                      selectedHeaderButton === "alarm" ? null : "alarm"
+                    )
+                  }
+                  className={`p-2 rounded-md border shadow-sm transition-all ${
+                    selectedHeaderButton === "alarm"
+                      ? "bg-black text-white border-black"
+                      : "bg-white border-gray-300 text-gray-600 hover:bg-gray-50 hover:border-gray-400"
+                  }`}
+                >
+                  <AlarmClock size={18} />
+                </button>
+              </TooltipTrigger>
+              <TooltipContent>
+                <p>Snooze conversation</p>
+              </TooltipContent>
+            </Tooltip>
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <button
+                  className={`p-2 rounded-md border shadow-sm transition-all ${
+                    selectedHeaderButton === "menu"
+                      ? "bg-black text-white border-black"
+                      : "bg-white border-gray-300 text-gray-600 hover:bg-gray-50 hover:border-gray-400"
+                  }`}
+                >
+                  <EllipsisVertical size={18} />
+                </button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end" className="w-56">
+                <DropdownMenuItem className="flex items-center gap-2">
+                  <FileText size={16} />
+                  Export as PDF
+                </DropdownMenuItem>
+                <DropdownMenuItem className="flex items-center gap-2">
+                  <Send size={16} />
+                  Create external thread
+                </DropdownMenuItem>
+                <DropdownMenuItem className="flex items-center gap-2">
+                  <Mail size={16} />
+                  Forward to email
+                </DropdownMenuItem>
+                <DropdownMenuItem className="flex items-center gap-2">
+                  <Trash2 size={16} />
+                  Delete conversation
+                </DropdownMenuItem>
+                <DropdownMenuItem className="flex items-center gap-2">
+                  <EyeOff size={16} />
+                  Hide conversation
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          </div>
+        </TooltipProvider>
       </div>
 
       {/* Messages */}
