@@ -195,7 +195,7 @@ const ConversationDetails = ({
                 className="w-full justify-between text-xs h-8"
               >
                 <div className="flex items-center gap-2">
-                  <div className="w-2 h-2 rounded-full bg-gray-400" />
+                  <div className="w-3 h-3 rounded-full border border-black" />
                   {priority
                     ? priorities.find((p) => p.value === priority)?.label
                     : "Select priority..."}
@@ -224,7 +224,7 @@ const ConversationDetails = ({
                         }}
                       >
                         <div className="flex items-center gap-2">
-                          <div className="w-2 h-2 rounded-full bg-gray-400" />
+                          <div className="w-3 h-3 rounded-full border border-black" />
                           {p.label}
                         </div>
                         <Check
@@ -301,19 +301,19 @@ const ConversationDetails = ({
         <div className="px-4 py-3">
           <Accordion type="multiple" className="w-full">
             <AccordionItem value="orders" className="border-b border-gray-200">
-              <AccordionTrigger className="text-xs font-medium text-gray-900 hover:no-underline py-3">
+              <AccordionTrigger className="text-xs font-medium text-gray-900 hover:no-underline py-3 flex justify-between items-center w-full [&[data-state=open]>svg]:rotate-180">
                 <span>ORDERS ({data.orders})</span>
                 <ChevronDown className="h-3 w-3 shrink-0 transition-transform duration-200" />
               </AccordionTrigger>
               <AccordionContent>
-                <div className="space-y-2">
-                  <div className="p-2 bg-white rounded border text-sm">
-                    <div className="font-medium">#86058184</div>
-                    <div className="text-gray-600">Status: Processing</div>
+                <div className="space-y-1 text-xs pb-3">
+                  <div className="flex justify-between items-center">
+                    <span className="text-gray-500">#86058184:</span>
+                    <span className="text-gray-900">Processing</span>
                   </div>
-                  <div className="p-2 bg-white rounded border text-sm">
-                    <div className="font-medium">#86058183</div>
-                    <div className="text-gray-600">Status: Completed</div>
+                  <div className="flex justify-between items-center">
+                    <span className="text-gray-500">#86058183:</span>
+                    <span className="text-gray-900">Completed</span>
                   </div>
                 </div>
               </AccordionContent>
@@ -323,19 +323,19 @@ const ConversationDetails = ({
               value="recent-conversations"
               className="border-b border-gray-200"
             >
-              <AccordionTrigger className="text-xs font-medium text-gray-900 hover:no-underline py-3">
+              <AccordionTrigger className="text-xs font-medium text-gray-900 hover:no-underline py-3 flex justify-between items-center w-full [&[data-state=open]>svg]:rotate-180">
                 <span>RECENT CONVERSATIONS ({data.recentConversations})</span>
                 <ChevronDown className="h-3 w-3 shrink-0 transition-transform duration-200" />
               </AccordionTrigger>
               <AccordionContent>
-                <div className="space-y-2">
-                  <div className="p-2 bg-white rounded border text-sm">
-                    <div className="font-medium">Plant Return Issue</div>
-                    <div className="text-gray-600">2 days ago</div>
+                <div className="space-y-1 text-xs pb-3">
+                  <div className="flex justify-between items-center">
+                    <span className="text-gray-500">Plant Return Issue:</span>
+                    <span className="text-gray-900">2 days ago</span>
                   </div>
-                  <div className="p-2 bg-white rounded border text-sm">
-                    <div className="font-medium">Order Status Inquiry</div>
-                    <div className="text-gray-600">1 week ago</div>
+                  <div className="flex justify-between items-center">
+                    <span className="text-gray-500">Order Status Inquiry:</span>
+                    <span className="text-gray-900">1 week ago</span>
                   </div>
                 </div>
               </AccordionContent>
@@ -345,12 +345,12 @@ const ConversationDetails = ({
               value="conversation-details"
               className="border-b border-gray-200"
             >
-              <AccordionTrigger className="text-xs font-medium text-gray-900 hover:no-underline py-3">
+              <AccordionTrigger className="text-xs font-medium text-gray-900 hover:no-underline py-3 flex justify-between items-center w-full [&[data-state=open]>svg]:rotate-180">
                 <span>CONVERSATION DETAILS</span>
                 <ChevronDown className="h-3 w-3 shrink-0 transition-transform duration-200" />
               </AccordionTrigger>
               <AccordionContent>
-                <div className="space-y-1 text-xs">
+                <div className="space-y-1 text-xs pb-3">
                   <div className="flex justify-between items-center">
                     <span className="text-gray-500">Business:</span>
                     <span className="text-gray-900">
@@ -437,12 +437,12 @@ const ConversationDetails = ({
               value="system-details"
               className="border-b border-gray-200"
             >
-              <AccordionTrigger className="text-xs font-medium text-gray-900 hover:no-underline py-3">
+              <AccordionTrigger className="text-xs font-medium text-gray-900 hover:no-underline py-3 flex justify-between items-center w-full [&[data-state=open]>svg]:rotate-180">
                 <span>SYSTEM DETAILS</span>
                 <ChevronDown className="h-3 w-3 shrink-0 transition-transform duration-200" />
               </AccordionTrigger>
               <AccordionContent>
-                <div className="space-y-1 text-xs">
+                <div className="space-y-1 text-xs pb-3">
                   <div className="flex justify-between items-center">
                     <span className="text-gray-500">CID:</span>
                     <span className="text-gray-900">
@@ -466,12 +466,12 @@ const ConversationDetails = ({
             </AccordionItem>
 
             <AccordionItem value="visited-pages">
-              <AccordionTrigger className="text-xs font-medium text-gray-900 hover:no-underline py-3">
+              <AccordionTrigger className="text-xs font-medium text-gray-900 hover:no-underline py-3 flex justify-between items-center w-full [&[data-state=open]>svg]:rotate-180">
                 <span>VISITED PAGES</span>
                 <ChevronDown className="h-3 w-3 shrink-0 transition-transform duration-200" />
               </AccordionTrigger>
               <AccordionContent>
-                <div className="space-y-1">
+                <div className="space-y-1 pb-3">
                   {data.visitedPages.map((page, index) => (
                     <div
                       key={index}
