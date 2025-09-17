@@ -5,7 +5,7 @@ import {
   AlarmClock,
   EllipsisVertical,
   CircleMinus,
-  SquareMinus,
+  Dock,
   Mail,
   ChevronDown,
   Bookmark,
@@ -184,10 +184,15 @@ const ConversationContent = ({
         {currentConversation.messages.map((message) => (
           <div
             key={message.id}
-            className={`flex ${
+            className={`flex items-end ${
               message.sender === "user" ? "justify-end" : "justify-start"
             }`}
           >
+            {message.sender !== "user" && (
+              <div className="mr-2 mb-1">
+                <CircleMinus size={24} className="text-white" fill="red" />
+              </div>
+            )}
             <div
               className={`relative max-w-[70%] rounded-lg px-4 py-3 ${
                 message.sender === "user"
@@ -215,6 +220,12 @@ const ConversationContent = ({
                 )}
               </div>
             </div>
+
+            {message.sender === "user" && (
+              <div className="ml-2 mb-1">
+                <Dock size={24} className="text-white" fill="black" />
+              </div>
+            )}
           </div>
         ))}
 
