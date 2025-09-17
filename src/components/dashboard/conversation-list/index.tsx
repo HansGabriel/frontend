@@ -36,6 +36,9 @@ const ConversationList = ({
 }: ConversationListProps) => {
   const [isOpen, setIsOpen] = useState(true);
   const [sortOrder, setSortOrder] = useState<"newest" | "oldest">("newest");
+  const [selectedConversationId, setSelectedConversationId] = useState<
+    string | null
+  >(null);
 
   const mockConversations = useMemo(() => {
     const baseConversations: Record<string, Conversation[]> = {
@@ -487,8 +490,15 @@ const ConversationList = ({
             return (
               <div
                 key={conversation.id}
-                className="px-4 py-2 border-b border-gray-100 hover:bg-gray-50 cursor-pointer"
-                onClick={() => onSelectConversation?.(conversation.id)}
+                className={`px-4 py-2 border-b border-gray-100 cursor-pointer transition-colors ${
+                  selectedConversationId === conversation.id
+                    ? "bg-blue-100 rounded-lg mx-2"
+                    : "hover:bg-gray-50"
+                }`}
+                onClick={() => {
+                  setSelectedConversationId(conversation.id);
+                  onSelectConversation?.(conversation.id);
+                }}
               >
                 <div className="flex items-start gap-3">
                   {/* Left Icon with Status Circle */}
