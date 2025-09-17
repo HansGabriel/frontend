@@ -6,11 +6,11 @@ import {
   AccordionTrigger,
 } from "../../ui/accordion";
 import {
-  Dropdown,
-  DropdownContent,
-  DropdownItem,
-  DropdownTrigger,
-} from "../../ui/dropdown";
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "../../ui/dropdown-menu";
 import {
   SquareUser,
   ScanLine,
@@ -125,15 +125,15 @@ const Views = ({ onSelect, defaultSelectedId }: ViewsProps) => {
         </div>
 
         {/* All Businesses dropdown */}
-        <Dropdown>
-          <DropdownTrigger className="w-full flex items-center justify-between text-sm font-semibold px-2 py-2 rounded-lg hover:bg-gray-200/60 data-[state=open]:bg-blue-100 data-[state=open]:text-blue-700">
+        <DropdownMenu>
+          <DropdownMenuTrigger className="w-full flex items-center justify-between text-sm font-semibold px-2 py-2 rounded-lg hover:bg-gray-200/60 data-[state=open]:bg-blue-100 data-[state=open]:text-blue-700">
             <span>{selectedBusiness}</span>
             <ChevronDown
               size={16}
               className="text-gray-500 data-[state=open]:text-blue-700"
             />
-          </DropdownTrigger>
-          <DropdownContent className="mt-1 w-[224px] bg-white shadow-lg rounded-md border border-gray-200 overflow-hidden">
+          </DropdownMenuTrigger>
+          <DropdownMenuContent className="mt-1 w-[224px] bg-white shadow-lg rounded-md border border-gray-200 overflow-hidden">
             <div className="p-3 border-b">
               <div className="flex items-center gap-2">
                 <Search size={16} className="text-black" />
@@ -144,24 +144,26 @@ const Views = ({ onSelect, defaultSelectedId }: ViewsProps) => {
                 />
               </div>
             </div>
-            <DropdownItem
-              onSelect={() => setSelectedBusiness("All Businesses")}
+            <DropdownMenuItem
+              onClick={() => setSelectedBusiness("All Businesses")}
+              className="hover:bg-blue-50"
             >
               All Businesses
-            </DropdownItem>
+            </DropdownMenuItem>
             <div className="px-3 py-1 text-xs text-gray-400">Businesses</div>
             {businesses
               .filter((b) => b !== "All Businesses")
               .map((business) => (
-                <DropdownItem
+                <DropdownMenuItem
                   key={business}
-                  onSelect={() => setSelectedBusiness(business)}
+                  onClick={() => setSelectedBusiness(business)}
+                  className="hover:bg-blue-50"
                 >
                   {business}
-                </DropdownItem>
+                </DropdownMenuItem>
               ))}
-          </DropdownContent>
-        </Dropdown>
+          </DropdownMenuContent>
+        </DropdownMenu>
       </div>
 
       <div className="flex-1 overflow-y-auto px-2 py-2 space-y-3">
