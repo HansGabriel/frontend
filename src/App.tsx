@@ -21,7 +21,7 @@ const App = () => {
         onSelectConversation={setSelectedConversationId}
       />
       <ConversationContent selectedConversationId={selectedConversationId} />
-      <ConversationDetails />
+      <ConversationDetails selectedConversationId={selectedConversationId} />
     </div>
   );
 };
