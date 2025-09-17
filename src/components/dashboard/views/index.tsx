@@ -107,7 +107,7 @@ const Views = ({ onSelect, defaultSelectedId }: ViewsProps) => {
     typeof count === "number" ? count.toLocaleString() : count;
 
   return (
-    <div className="w-60 bg-gray-100 h-full border-r border-gray-200 flex flex-col">
+    <div className="w-52 bg-gray-100 h-full border-r border-gray-200 flex flex-col">
       {/* Header */}
       <div className="px-3 pt-3 pb-2">
         <div className="flex items-center justify-between mb-3">

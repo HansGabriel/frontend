@@ -384,7 +384,7 @@ const ConversationList = ({ selectedView }: ConversationListProps) => {
   };
 
   return (
-    <div className="w-80 bg-white h-full border-r border-gray-200 flex flex-col">
+    <div className="w-72 bg-white h-full border-r border-gray-200 flex flex-col">
       {/* Header */}
       <div className="px-4 py-3 border-b border-gray-200">
         <h2 className="text-lg font-semibold text-gray-900">Human</h2>
