@@ -8,13 +8,19 @@ import type { ViewItem } from "./components/dashboard/views";
 
 const App = () => {
   const [selectedView, setSelectedView] = useState<ViewItem | undefined>();
+  const [selectedConversationId, setSelectedConversationId] = useState<
+    string | undefined
+  >();
 
   return (
     <div className="h-screen flex">
       <Navbar />
       <Views onSelect={setSelectedView} />
-      <ConversationList selectedView={selectedView} />
-      <ConversationContent />
+      <ConversationList
+        selectedView={selectedView}
+        onSelectConversation={setSelectedConversationId}
+      />
+      <ConversationContent selectedConversationId={selectedConversationId} />
       <ConversationDetails />
     </div>
   );

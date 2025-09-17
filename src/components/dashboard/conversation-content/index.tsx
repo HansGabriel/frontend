@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import {
   Languages,
   PanelBottomClose,
@@ -40,6 +40,7 @@ const ConversationContent = ({
   const [selectedHeaderButton, setSelectedHeaderButton] = useState<
     string | null
   >(null);
+  const [messages, setMessages] = useState<Message[]>([]);
 
   // Mock conversation data linked by ID
   const conversationData = useMemo(() => {
@@ -93,6 +94,20 @@ const ConversationContent = ({
           },
         ],
       },
+      "3": {
+        id: "3",
+        email: "mathilde.baufine@email.com",
+        type: "Inquiry",
+        messages: [
+          {
+            id: "m6",
+            sender: "other",
+            content:
+              "Bonjour, Je vous relance une énième fois, après un premier message...",
+            timestamp: "18m",
+          },
+        ],
+      },
     };
     return data;
   }, []);
@@ -100,6 +115,35 @@ const ConversationContent = ({
   const currentConversation = selectedConversationId
     ? conversationData[selectedConversationId]
     : conversationData["1"];
+
+  const allMessages = currentConversation
+    ? [...currentConversation.messages, ...messages]
+    : [];
+
+  const handleSendMessage = () => {
+    if (messageText.trim() && currentConversation) {
+      const newMessage: Message = {
+        id: `m${Date.now()}`,
+        sender: "user",
+        content: messageText.trim(),
+        timestamp: "now",
+      };
+      setMessages((prev) => [...prev, newMessage]);
+      setMessageText("");
+    }
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === "Enter" && !e.shiftKey) {
+      e.preventDefault();
+      handleSendMessage();
+    }
+  };
+
+  // Reset messages when conversation changes
+  useEffect(() => {
+    setMessages([]);
+  }, [selectedConversationId]);
 
   if (!currentConversation) {
     return (
@@ -181,7 +225,7 @@ const ConversationContent = ({
 
       {/* Messages */}
       <div className="flex-1 overflow-y-auto px-6 py-4 space-y-4">
-        {currentConversation.messages.map((message) => (
+        {allMessages.map((message) => (
           <div
             key={message.id}
             className={`flex items-end ${
@@ -230,8 +274,8 @@ const ConversationContent = ({
         ))}
 
         {/* Handoff message */}
-        <div className="text-center py-4">
-          <p className="text-sm text-gray-500">
+        <div className="text-center py-2">
+          <p className="text-xs text-gray-500 italic">
             Handed off conversation. Reason: Handoff request
           </p>
         </div>
@@ -252,6 +296,7 @@ const ConversationContent = ({
             <textarea
               value={messageText}
               onChange={(e) => setMessageText(e.target.value)}
+              onKeyDown={handleKeyDown}
               placeholder="Type here..."
               className="w-full min-h-[25px] text-sm text-gray-900 placeholder-gray-500 border-none outline-none resize-none"
             />
@@ -278,7 +323,10 @@ const ConversationContent = ({
             </div>
 
             <div className="flex items-center">
-              <button className="px-3 py-1 text-gray-500 text-sm font-medium hover:text-gray-900">
+              <button
+                onClick={handleSendMessage}
+                className="px-3 py-1 text-gray-500 text-sm font-medium hover:text-gray-900"
+              >
                 Send
               </button>
               <div className="w-px h-4 bg-gray-400"></div>

@@ -27,9 +27,13 @@ type Conversation = {
 
 type ConversationListProps = {
   selectedView?: ViewItem;
+  onSelectConversation?: (conversationId: string) => void;
 };
 
-const ConversationList = ({ selectedView }: ConversationListProps) => {
+const ConversationList = ({
+  selectedView,
+  onSelectConversation,
+}: ConversationListProps) => {
   const [isOpen, setIsOpen] = useState(true);
   const [sortOrder, setSortOrder] = useState<"newest" | "oldest">("newest");
 
@@ -372,15 +376,71 @@ const ConversationList = ({ selectedView }: ConversationListProps) => {
 
   const totalCount = mockConversations.length;
 
-  // Random icon selection for conversations
-  const getRandomIcon = () => {
-    const icons = [CornerUpRight, Plus, RotateCcw];
-    return icons[Math.floor(Math.random() * icons.length)];
+  // Static icon assignments
+  const getLeftIcon = (id: string) => {
+    const iconMap: Record<
+      string,
+      React.ComponentType<{ size?: number; className?: string }>
+    > = {
+      "1": CornerUpRight,
+      "2": Plus,
+      "3": RotateCcw,
+      "11": CornerUpRight,
+      "12": Plus,
+      "13": RotateCcw,
+      "14": CornerUpRight,
+      "15": Plus,
+      "16": RotateCcw,
+      "17": CornerUpRight,
+      "18": Plus,
+      "19": RotateCcw,
+      "20": CornerUpRight,
+      "21": Plus,
+      "22": RotateCcw,
+      "23": CornerUpRight,
+      "24": Plus,
+      "25": RotateCcw,
+      "26": CornerUpRight,
+      "27": CornerUpRight,
+      "28": Plus,
+      "29": RotateCcw,
+      "30": CornerUpRight,
+      "31": Plus,
+    };
+    return iconMap[id] || CornerUpRight;
   };
 
-  const getRandomTopRightIcon = () => {
-    const icons = [Mail, Instagram];
-    return icons[Math.floor(Math.random() * icons.length)];
+  const getTopRightIcon = (id: string) => {
+    const iconMap: Record<
+      string,
+      React.ComponentType<{ size?: number; className?: string }>
+    > = {
+      "1": Mail,
+      "2": Instagram,
+      "3": Mail,
+      "11": Mail,
+      "12": Instagram,
+      "13": Mail,
+      "14": Instagram,
+      "15": Mail,
+      "16": Instagram,
+      "17": Mail,
+      "18": Instagram,
+      "19": Mail,
+      "20": Instagram,
+      "21": Mail,
+      "22": Instagram,
+      "23": Mail,
+      "24": Instagram,
+      "25": Mail,
+      "26": Instagram,
+      "27": Mail,
+      "28": Instagram,
+      "29": Mail,
+      "30": Instagram,
+      "31": Mail,
+    };
+    return iconMap[id] || Mail;
   };
 
   return (
@@ -422,12 +482,13 @@ const ConversationList = ({ selectedView }: ConversationListProps) => {
       {isOpen && (
         <div className="flex-1 overflow-y-auto">
           {sortedConversations.map((conversation) => {
-            const IconComponent = getRandomIcon();
-            const TopRightIcon = getRandomTopRightIcon();
+            const IconComponent = getLeftIcon(conversation.id);
+            const TopRightIcon = getTopRightIcon(conversation.id);
             return (
               <div
                 key={conversation.id}
-                className="px-4 py-3 border-b border-gray-100 hover:bg-gray-50 cursor-pointer"
+                className="px-4 py-2 border-b border-gray-100 hover:bg-gray-50 cursor-pointer"
+                onClick={() => onSelectConversation?.(conversation.id)}
               >
                 <div className="flex items-start gap-3">
                   {/* Left Icon with Status Circle */}
@@ -461,12 +522,13 @@ const ConversationList = ({ selectedView }: ConversationListProps) => {
                       {conversation.subject}
                     </div>
 
-                    <div className="text-xs text-gray-500 line-clamp-2">
-                      {conversation.lastMessage}
-                    </div>
-
-                    <div className="text-xs text-gray-400 mt-2 text-right">
-                      {conversation.time}
+                    <div className="flex items-start justify-between gap-2">
+                      <div className="text-xs text-gray-500 line-clamp-2 flex-1 mr-2">
+                        {conversation.lastMessage}
+                      </div>
+                      <div className="text-xs text-gray-400 flex-shrink-0 self-end">
+                        {conversation.time}
+                      </div>
                     </div>
                   </div>
                 </div>
