@@ -1,10 +1,5 @@
-import {
-  createContext,
-  PropsWithChildren,
-  useContext,
-  useMemo,
-  useState,
-} from "react";
+import { createContext, useContext, useMemo, useState } from "react";
+import type { PropsWithChildren } from "react";
 
 type AccordionProps = {
   type?: "single" | "multiple";

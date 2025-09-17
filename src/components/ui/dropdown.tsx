@@ -1,11 +1,5 @@
-import {
-  createContext,
-  PropsWithChildren,
-  useContext,
-  useEffect,
-  useRef,
-  useState,
-} from "react";
+import { createContext, useContext, useEffect, useRef, useState } from "react";
+import type { PropsWithChildren } from "react";
 
 type DropdownContextValue = {
   open: boolean;
@@ -51,14 +45,14 @@ export function DropdownContent({
 
   useEffect(() => {
     function onDocClick(e: MouseEvent) {
-      if (!ref.current) return;
+      if (!ref.current || !ctx) return;
       if (ctx.open && !ref.current.contains(e.target as Node)) {
         ctx.setOpen(false);
       }
     }
     document.addEventListener("mousedown", onDocClick);
     return () => document.removeEventListener("mousedown", onDocClick);
-  }, [ctx.open]);
+  }, [ctx]);
 
   if (!ctx.open) return null;
   return (
