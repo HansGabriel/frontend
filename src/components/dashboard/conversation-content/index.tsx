@@ -638,7 +638,9 @@ const ConversationContent = ({
   if (!currentConversation) {
     return (
       <div className="flex-1 bg-white h-full flex items-center justify-center">
-        <div className="text-gray-500">Select a conversation to view</div>
+        <div className="text-xl font-bold text-gray-900">
+          Please select a conversation
+        </div>
       </div>
     );
   }
